@@ -74,6 +74,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.blaze.qa.util.SystemState;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -116,21 +117,17 @@ public class WeatherApiIntegeration {
 			Map<String, Object> mainMap = jsonToMapConversion(respMap.get("main").toString());
 			Map<String, Object> windMap = jsonToMapConversion(respMap.get("wind").toString());
 
-			System.out.println("Current Temperature: " + mainMap.get("temp"));
-			System.out.println("Current Humidity: " + mainMap.get("humidity"));
-			System.out.println("Wind Speed: " + windMap.get("speed"));
-			System.out.println("Wind Angle: " + windMap.get("deg"));
-
+			HashMap<String, Object> Dataint= new HashMap<String, Object>();
+			Dataint.put("Temperature", mainMap.get("temp"));
+			Dataint.put("Humidity", mainMap.get("humidity"));
+			Dataint.put("Wind Speed", windMap.get("speed"));
+			SystemState.setWeatherDataFromAPI(Dataint);
+			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void main(String[] args) {
-		String API_KEY = "7fe67bf08c80ded756e598d6f8fedaea";
-		String LOCATION = "Bengaluru";
-		String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + LOCATION + "&units=metric&appid="
-				+ API_KEY;
-		fetchWeatherData_OpenWeatherAPi(API_KEY, LOCATION);
 
-	}
+	
+	
 }

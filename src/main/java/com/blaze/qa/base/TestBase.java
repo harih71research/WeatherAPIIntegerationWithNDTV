@@ -13,6 +13,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import com.blaze.qa.util.SystemState;
 import com.blaze.qa.util.TestUtil;
 import com.blaze.qa.util.WebEventListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -30,6 +31,9 @@ public class TestBase {
 			FileInputStream ip = new FileInputStream(
 					System.getProperty("user.dir") + "/src/test/resources/Properties/ProjectSpecific.properties");
 			prop.load(ip);
+			SystemState.setAPIKEY(prop.getProperty("APIKEY"));
+			SystemState.setLocation(prop.getProperty("LOCATION"));
+			SystemState.setAsset(prop.getProperty("Assert"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
