@@ -1,5 +1,9 @@
 package com.blaze.qa.testNgFiles;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.AssertJUnit;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.Reporter;
@@ -22,6 +26,7 @@ public class WeatherDatavarification extends TestBase{
 		super();
 	}
 
+	@BeforeMethod
 	@BeforeSuite
 	public void setUp() {
 		Reporter.log("Browser initialization");
@@ -48,7 +53,7 @@ public class WeatherDatavarification extends TestBase{
 	public void VerifySelectedCityinSearchBox(){
 		// first verify location in search box
 		boolean expectedLocationAvailable = weatherpage.isExpectedLocationAvailable();
-		assertEquals(expectedLocationAvailable, true);
+		AssertJUnit.assertEquals(expectedLocationAvailable, true);
 		Reporter.log("Expected location available in search box" ,expectedLocationAvailable);
 	}
 	
@@ -56,7 +61,7 @@ public class WeatherDatavarification extends TestBase{
 	public void VerifySelectCityWithTemp(){
 		// verify temp avialable for given location
 		boolean expectedTempLeaflet = weatherpage.isExpectedTempLeaflet();
-		assertEquals(expectedTempLeaflet, true);
+		AssertJUnit.assertEquals(expectedTempLeaflet, true);
 		Reporter.log("Expected location temperature available in Popup" ,expectedTempLeaflet);
 	}
 	
@@ -66,13 +71,13 @@ public class WeatherDatavarification extends TestBase{
 		//verify location weahter details availabel
 
 	 boolean clickOnLocationweatherIcon = weatherpage.clickOnLocationweatherIcon();
-		assertEquals(clickOnLocationweatherIcon, true);
+		AssertJUnit.assertEquals(clickOnLocationweatherIcon, true);
 	}
 	@Test(priority=6)
 	public void getWeahterDetailsinWeb() {
 		// get weather datas in web
 		boolean weatherDataAfterAssert = WeatherDetail_NDTV.getWeatherDataAfterAssert(weatherpage);
-		assertEquals(weatherDataAfterAssert, true);
+		AssertJUnit.assertEquals(weatherDataAfterAssert, true);
 	}
 	
 	@Test(priority=7)
@@ -85,10 +90,11 @@ public class WeatherDatavarification extends TestBase{
 	public void VerifyDatasAreMatch() {
 		// verify data with Web and APi
 		boolean comparingDatafrom_NDTV_OpenWeather = WeatherDetail_NDTV.AssertWithVarianceData(2, 15, 2);
-		assertEquals(comparingDatafrom_NDTV_OpenWeather, true);
+		AssertJUnit.assertEquals(comparingDatafrom_NDTV_OpenWeather, true);
 	}
 	
 	
+	@AfterMethod
 	@AfterSuite
 	public void tearDown() {
 		driver.quit();
